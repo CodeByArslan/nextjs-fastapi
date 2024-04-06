@@ -3,9 +3,14 @@ from fastapi import FastAPI
 from sqlmodel import Field, Session, SQLModel, create_engine
 from pydantic import BaseModel
 
-DATABASE_URL = "postgresql://fastnextdb_owner:S82uNJXbBTLW@ep-sparkling-lake-a15kgyar-pooler.ap-southeast-1.aws.neon.tech/fastnextdb?sslmode=require"
+from dotenv import load_dotenv
+import os
 
-engine = create_engine(DATABASE_URL)
+load_dotenv()
+
+db_url= os.getenv("db_url")
+
+engine = create_engine(db_url)
 
 def create_table():
     SQLModel.metadata.create_all(engine)
